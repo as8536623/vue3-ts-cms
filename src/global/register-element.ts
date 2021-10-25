@@ -8,7 +8,8 @@ import {
   ElAutocomplete,
   ElAvatar,
   ElBacktop,
-  ElBadge
+  ElBadge,
+  ElInput
 } from 'element-plus'
 
 const components: any[] = [
@@ -19,7 +20,8 @@ const components: any[] = [
   ElAutocomplete,
   ElAvatar,
   ElBacktop,
-  ElBadge
+  ElBadge,
+  ElInput
 ]
 
 export function registerElement(app: App): void {
