@@ -1,7 +1,6 @@
 ;(function (e) {
   function t(t) {
-    for (var o, a, u = t[0], i = t[1], l = t[2], s = 0, f = []; s < u.length; s++)
-      (a = u[s]), Object.prototype.hasOwnProperty.call(r, a) && r[a] && f.push(r[a][0]), (r[a] = 0)
+    for (var o, a, u = t[0], i = t[1], l = t[2], s = 0, f = []; s < u.length; s++) (a = u[s]), Object.prototype.hasOwnProperty.call(r, a) && r[a] && f.push(r[a][0]), (r[a] = 0)
     for (o in i) Object.prototype.hasOwnProperty.call(i, o) && (e[o] = i[o])
     p && p(t)
     while (f.length) f.shift()()
@@ -40,10 +39,7 @@
         t.push((n[2] = o))
         var c,
           i = document.createElement('script')
-        ;(i.charset = 'utf-8'),
-          (i.timeout = 120),
-          u.nc && i.setAttribute('nonce', u.nc),
-          (i.src = a(e))
+        ;(i.charset = 'utf-8'), (i.timeout = 120), u.nc && i.setAttribute('nonce', u.nc), (i.src = a(e))
         var l = new Error()
         c = function (t) {
           ;(i.onerror = i.onload = null), clearTimeout(s)
@@ -52,11 +48,7 @@
             if (n) {
               var o = t && ('load' === t.type ? 'missing' : t.type),
                 c = t && t.target && t.target.src
-              ;(l.message = 'Loading chunk ' + e + ' failed.\n(' + o + ': ' + c + ')'),
-                (l.name = 'ChunkLoadError'),
-                (l.type = o),
-                (l.request = c),
-                n[1](l)
+              ;(l.message = 'Loading chunk ' + e + ' failed.\n(' + o + ': ' + c + ')'), (l.name = 'ChunkLoadError'), (l.type = o), (l.request = c), n[1](l)
             }
             r[e] = void 0
           }
@@ -74,20 +66,13 @@
       u.o(e, t) || Object.defineProperty(e, t, { enumerable: !0, get: n })
     }),
     (u.r = function (e) {
-      'undefined' !== typeof Symbol &&
-        Symbol.toStringTag &&
-        Object.defineProperty(e, Symbol.toStringTag, { value: 'Module' }),
-        Object.defineProperty(e, '__esModule', { value: !0 })
+      'undefined' !== typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: 'Module' }), Object.defineProperty(e, '__esModule', { value: !0 })
     }),
     (u.t = function (e, t) {
       if ((1 & t && (e = u(e)), 8 & t)) return e
       if (4 & t && 'object' === typeof e && e && e.__esModule) return e
       var n = Object.create(null)
-      if (
-        (u.r(n),
-        Object.defineProperty(n, 'default', { enumerable: !0, value: e }),
-        2 & t && 'string' != typeof e)
-      )
+      if ((u.r(n), Object.defineProperty(n, 'default', { enumerable: !0, value: e }), 2 & t && 'string' != typeof e))
         for (var o in e)
           u.d(
             n,
@@ -209,7 +194,12 @@
       k = Object(b['a'])({ history: Object(b['b'])(''), routes: P }),
       V = k,
       N = n('5502'),
-      _ = Object(N['a'])({ state: {}, mutations: {}, actions: {}, modules: {} }),
+      _ = Object(N['a'])({
+        state: {},
+        mutations: {},
+        actions: {},
+        modules: {}
+      }),
       C = n('bc3a'),
       E = n.n(C)
     console.log('production')
@@ -217,7 +207,11 @@
       E.a.get('/get', { params: { id: 100, name: 'ds' } }).then(function (e) {
         console.log(e)
       }),
-      E()({ method: 'post', url: '/post', data: { id: 1, name: 'dingshuai' } }).then(function (e) {
+      E()({
+        method: 'post',
+        url: '/post',
+        data: { id: 1, name: 'dingshuai' }
+      }).then(function (e) {
         console.log(e)
       }),
       E.a.interceptors.request.use(

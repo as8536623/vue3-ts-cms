@@ -1,14 +1,13 @@
-console.log(process.env.NODE_ENV)
 let BASE_URL = ''
-let BASE_NAME = ''
+let BASE_TIME_OUT = 0
 if (process.env.NODE_ENV === 'development') {
-  BASE_URL = 'http//crderwhy.com/dev'
-  BASE_NAME = 'dev'
+  BASE_URL = 'http://123.207.32.32:8000/'
+  BASE_TIME_OUT = 1000
 } else if (process.env.NODE_ENV === 'production') {
-  BASE_URL = 'http//crderwhy.com/pro'
-  BASE_NAME = 'pro'
+  BASE_URL = 'http://crderwhy.com/pro'
+  BASE_TIME_OUT = 1000
 } else {
-  BASE_URL = 'http//crderwhy.com/test'
-  BASE_NAME = 'test'
+  BASE_URL = 'http://crderwhy.com/test'
+  BASE_TIME_OUT = 1000
 }
-export default { BASE_URL, BASE_NAME }
+export { BASE_URL, BASE_TIME_OUT }
