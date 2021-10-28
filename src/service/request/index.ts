@@ -3,7 +3,7 @@ import type { AxiosInstance } from 'axios'
 import { requestResponseConfig, DSrequestResponseConfig } from './public'
 import { ElLoading } from 'element-plus'
 import { ILoadingInstance } from 'element-plus/packages/components/loading/src/loading.type'
-const BASE_LOADING = true
+const BASE_LOADING = false
 class DSRequest {
   instance: AxiosInstance
   interceptors?: requestResponseConfig
@@ -14,8 +14,14 @@ class DSRequest {
     this.interceptors = config.interceptors
     this.showLoading = config.showLoading ?? BASE_LOADING
     //单个实例拦截请求
-    this.instance.interceptors.request.use(this.interceptors?.requestInter, this.interceptors?.requestReturn)
-    this.instance.interceptors.response.use(this.interceptors?.responseInter, this.interceptors?.responseReturn)
+    this.instance.interceptors.request.use(
+      this.interceptors?.requestInter,
+      this.interceptors?.requestReturn
+    )
+    this.instance.interceptors.response.use(
+      this.interceptors?.responseInter,
+      this.interceptors?.responseReturn
+    )
 
     //全局拦截请求
     this.instance.interceptors.request.use(
@@ -53,7 +59,7 @@ class DSRequest {
       }
     )
   }
-  request<T>(config: DSrequestResponseConfig): Promise<T> {
+  request<T>(config: DSrequestResponseConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       if (config.interceptors?.requestInter) {
         config = config.interceptors.requestInter(config)
@@ -77,17 +83,17 @@ class DSRequest {
     })
   }
 
-  get<T>(config: DSrequestResponseConfig): Promise<T> {
+  get<T>(config: DSrequestResponseConfig<T>): Promise<T> {
     return this.request({ ...config, method: 'GET' })
   }
 
-  post<T>(config: DSrequestResponseConfig): Promise<T> {
+  post<T>(config: DSrequestResponseConfig<T>): Promise<T> {
     return this.request({ ...config, method: 'POST' })
   }
-  delete<T>(config: DSrequestResponseConfig): Promise<T> {
+  delete<T>(config: DSrequestResponseConfig<T>): Promise<T> {
     return this.request({ ...config, method: 'DELETE' })
   }
-  patch<T>(config: DSrequestResponseConfig): Promise<T> {
+  patch<T>(config: DSrequestResponseConfig<T>): Promise<T> {
     return this.request({ ...config, method: 'PATCH' })
   }
 }

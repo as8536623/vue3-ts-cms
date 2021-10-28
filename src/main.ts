@@ -9,7 +9,12 @@ import dsRequest from './service'
 import 'element-plus/dist/index.css'*/
 import { register } from './global'
 
+import 'normalize.css'
+import './assets/css/index.less'
+
 const app = createApp(App)
+/*app.use(ElementPlus)*/
+
 app.use(register)
 app.use(store).use(router).mount('#app')
 /*console.log(process.env.VUE_APP_BASE_URL);*/
