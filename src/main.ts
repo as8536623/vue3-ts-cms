@@ -32,6 +32,7 @@ dsRequest
     showLoading: true
   })
   .then((res) => {
+    console.log(res)
     /* console.log(res.data.data)
     console.log(res.data.returnCode)
     console.log(res.data.success)*/
