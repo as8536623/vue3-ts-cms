@@ -1,8 +1,15 @@
 import { createStore } from 'vuex'
-
-export default createStore({
-  state: {},
+import { rootState } from './type'
+import loginModule from './login/login'
+const store = createStore<rootState>({
+  state: {
+    name: 'coder why',
+    password: 20
+  },
   mutations: {},
   actions: {},
-  modules: {}
+  modules: {
+    loginModule
+  }
 })
+export default store

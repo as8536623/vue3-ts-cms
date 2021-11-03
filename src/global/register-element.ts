@@ -13,7 +13,11 @@ import {
   ElLoading,
   ElTabs,
   ElTabPane,
-  ElIcon
+  ElIcon,
+  ElForm,
+  ElFormItem,
+  ElCheckbox,
+  ElLink
 } from 'element-plus'
 
 const components: any[] = [
@@ -29,7 +33,11 @@ const components: any[] = [
   ElLoading,
   ElTabs,
   ElTabPane,
-  ElIcon
+  ElIcon,
+  ElForm,
+  ElFormItem,
+  ElCheckbox,
+  ElLink
 ]
 
 export function registerElement(app: App): void {

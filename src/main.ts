@@ -15,6 +15,7 @@ import './assets/css/index.less'
 const app = createApp(App)
 /*app.use(ElementPlus)*/
 
+/*register(app)*/
 app.use(register)
 app.use(store).use(router).mount('#app')
 /*console.log(process.env.VUE_APP_BASE_URL);*/
@@ -31,7 +32,7 @@ dsRequest
     showLoading: true
   })
   .then((res) => {
-    console.log(res.data.data)
+    /* console.log(res.data.data)
     console.log(res.data.returnCode)
-    console.log(res.data.success)
+    console.log(res.data.success)*/
   })
