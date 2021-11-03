@@ -11,7 +11,7 @@ const loginModule: Module<loginState, rootState> = {
   mutations: {},
   actions: {
     accountLogin({ commit }, payload) {
-      console.log('account', payload)
+      console.log('account', payload, commit)
     }
   }
 }
