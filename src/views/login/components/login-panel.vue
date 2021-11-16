@@ -44,11 +44,10 @@ export default defineComponent({
     //const accountRef = ref<InstanceType<typeof loginAccount>>()
     const accountRef = ref()
     const bthClick = () => {
-      if (currenTab.value === 'count') {
-        console.log(currenTab.value)
+      if (currenTab.value === 'account') {
         accountRef.value.loginAction(rememberPass.value)
       } else if (currenTab.value === 'iphone') {
-        console.log(currenTab.value)
+        return currenTab.value
       }
     }
     return {

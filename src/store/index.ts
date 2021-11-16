@@ -12,4 +12,5 @@ const store = createStore<rootState>({
     loginModule
   }
 })
+
 export default store
