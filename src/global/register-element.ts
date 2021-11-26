@@ -27,7 +27,16 @@ import {
   ElMenuItemGroup,
   ElDropdown,
   ElDropdownMenu,
-  ElDropdownItem
+  ElDropdownItem,
+  ElRow,
+  ElCol,
+  ElDatePicker,
+  ElSelect,
+  ElOption,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
+  ElTableColumn,
+  ElPagination
 } from 'element-plus'
 
 const components: any[] = [
@@ -57,7 +66,16 @@ const components: any[] = [
   ElMenuItemGroup,
   ElDropdown,
   ElDropdownMenu,
-  ElDropdownItem
+  ElDropdownItem,
+  ElRow,
+  ElCol,
+  ElDatePicker,
+  ElSelect,
+  ElOption,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
+  ElTableColumn,
+  ElPagination
 ]
 
 export function registerElement(app: App): void {

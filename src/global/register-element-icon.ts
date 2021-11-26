@@ -8,7 +8,9 @@ import {
   Setting,
   Fold,
   Expand,
-  ArrowDown
+  ArrowDown,
+  Search,
+  Refresh
 } from '@element-plus/icons'
 
 const components: any[] = [
@@ -20,7 +22,9 @@ const components: any[] = [
   Setting,
   Fold,
   Expand,
-  ArrowDown
+  ArrowDown,
+  Search,
+  Refresh
 ]
 
 export function registerElementIcon(app: App): void {

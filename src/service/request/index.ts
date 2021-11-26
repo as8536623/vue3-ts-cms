@@ -3,7 +3,7 @@ import type { AxiosInstance } from 'axios'
 import { requestResponseConfig, DSrequestResponseConfig } from './public'
 import { ElLoading } from 'element-plus'
 import { ILoadingInstance } from 'element-plus/packages/components/loading/src/loading.type'
-const BASE_LOADING = false
+const BASE_LOADING = true
 class DSRequest {
   instance: AxiosInstance
   interceptors?: requestResponseConfig

@@ -9,7 +9,13 @@
       </template>
     </el-icon>
     <div class="header-title">
-      <div>面包屑</div>
+      <div>
+        <el-breadcrumb separator="/">
+          <template v-for="item of breadcrumb" :key="item">
+            <el-breadcrumb-item :to="{ path: item.path }">{{ item.name }}</el-breadcrumb-item>
+          </template>
+        </el-breadcrumb>
+      </div>
       <div class="userInfo">
         <el-avatar
           :size="30"
@@ -37,8 +43,10 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, reactive } from 'vue'
 import store from '@/store'
+import { menuPath } from '@/utils/userMenu'
+import { useRoute } from 'vue-router'
 export default defineComponent({
   emits: ['navHeaderValue'],
   name: 'nav-header',
@@ -49,10 +57,17 @@ export default defineComponent({
       context.emit('navHeaderValue', isIcon.value)
     }
     const userName = computed(() => store.state.loginModule.userInfo.name)
+    const breadcrumb = computed(() => {
+      const route = useRoute()
+      const breadcrumbpath = route.path
+      const userMenu = reactive(store.state.loginModule.menuInfo)
+      return menuPath(userMenu, breadcrumbpath, 1)
+    })
     return {
       isIcon,
       handClickIcon,
-      userName
+      userName,
+      breadcrumb
     }
   }
 })

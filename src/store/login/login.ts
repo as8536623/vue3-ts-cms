@@ -25,7 +25,7 @@ const loginModule: Module<loginState, rootState> = {
       state.menuInfo = menuInfo
       const routes = changeUserMenu(menuInfo)
       routes.forEach((route) => {
-        router.addRoute('main', route)
+        router.addRoute('mainHome', route)
       })
     }
   },

@@ -1,15 +1,16 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import localstorage from '@/utils/localstorage'
-import main from '@/views/main/main.vue'
+import mainHome from '@/views/main/mainHome.vue'
+import { firstMenu } from '@/utils/userMenu'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: main
+    redirect: mainHome
   },
   {
     path: '/main',
-    name: 'main',
-    component: () => import(/* webpackChunkName: "mainuser" */ '@/views/main/main.vue')
+    name: 'mainHome',
+    component: () => import(/* webpackChunkName: "mainHome" */ '@/views/main/mainHome.vue')
   },
   {
     path: '/login',
@@ -36,6 +37,9 @@ router.beforeEach((to) => {
     if (!token) {
       router.push('/login')
     }
+  }
+  if (to.name === 'mainHome') {
+    return router.push(firstMenu.url)
   }
 })
 

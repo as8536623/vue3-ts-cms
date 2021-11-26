@@ -6,7 +6,7 @@
     </div>
     <div class="nav-menu-box">
       <el-menu
-        default-active="39"
+        :default-active="defaultActive"
         class="el-menu-vertical"
         background-color="#0c2135"
         text-color="#b7bdc3"
@@ -42,9 +42,11 @@
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
 import router from '@/router'
+import { useRoute } from 'vue-router'
+import { menuPath } from '@/utils/userMenu'
 export default defineComponent({
   name: 'nav-left-menu',
   props: {
@@ -55,15 +57,19 @@ export default defineComponent({
   },
   setup() {
     const store = useStore()
+    const route = useRoute()
     const userMenu = reactive(store.state.loginModule.menuInfo)
     const routePath = (routePath) => {
       router.push({
         path: routePath.url ?? '/notFound'
       })
     }
+    const menuId = menuPath(userMenu, route.path)
+    const defaultActive = ref(menuId.id + '')
     return {
       userMenu,
-      routePath
+      routePath,
+      defaultActive
     }
   }
 })

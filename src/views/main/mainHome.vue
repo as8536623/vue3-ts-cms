@@ -23,6 +23,7 @@ import { defineComponent, ref } from 'vue'
 import navLeftMenu from '@/components/nav-menu/'
 import navHeader from '@/components/nav-header/'
 export default defineComponent({
+  name: 'mainHome',
   components: {
     navLeftMenu,
     navHeader
@@ -47,7 +48,7 @@ export default defineComponent({
 }
 .el-header,
 .el-footer {
-  background-color: #b3c0d1;
+  background-color: #fff;
   color: var(--el-text-color-primary);
   line-height: 60px;
 }
@@ -72,6 +73,6 @@ body > .el-container {
   line-height: 320px;
 }
 .page {
-  background-color: #fff;
+  background-color: #eee;
 }
 </style>
