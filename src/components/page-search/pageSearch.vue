@@ -40,7 +40,8 @@ export default defineComponent({
     }
 
     return {
-      formDataModel
+      formDataModel,
+      handleResetClick
     }
   }
 })
