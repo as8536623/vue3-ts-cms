@@ -8,7 +8,11 @@ const userModule: Module<userState, rootState> = {
   state: {
     usersList: [],
     roleList: [],
-    totalCount: 0
+    goodsList: [],
+    menuList: [],
+    userTotalCount: 0,
+    roleTotalCount: 0,
+    goodsTotalCount: 0
   },
   getters: {
     getDataList(state) {
@@ -18,11 +22,27 @@ const userModule: Module<userState, rootState> = {
             return state.usersList
           case 'role':
             return state.roleList
+          case 'goods':
+            return state.goodsList
+          case 'menu':
+            return state.menuList
         }
       }
       /*return (pageName: string) => {
         return (state as any)[`${pageName}List`]
       }*/
+    },
+    getTotalCount(state) {
+      return (pageName: string) => {
+        switch (pageName) {
+          case 'users':
+            return state.userTotalCount
+          case 'role':
+            return state.roleTotalCount
+          case 'goods':
+            return state.goodsTotalCount
+        }
+      }
     }
   },
   mutations: {
@@ -32,19 +52,43 @@ const userModule: Module<userState, rootState> = {
     changeRoleList(state, list) {
       state.roleList = list
     },
+    changeGoodsList(state, list) {
+      state.goodsList = list
+    },
+    changeMenuList(state, list) {
+      state.menuList = list
+    },
     changeUserTotalCount(state, count) {
-      state.totalCount = count
+      state.userTotalCount = count
+    },
+    changeRoleTotalCount(state, count) {
+      state.roleTotalCount = count
+    },
+    changeGoodsTotalCount(state, count) {
+      state.goodsTotalCount = count
     }
   },
   actions: {
     async accountUserList({ commit }, payload: userAccount) {
-      const userListResult = await userAccountRequest(payload)
+      const listDataResult = await userAccountRequest(payload)
       switch (payload.dataName) {
         case 'users':
-          return commit('changeUsersList', userListResult.data.data.list)
-          return commit('changeUserTotalCount', userListResult.data.data.totalCount)
+          return [
+            commit('changeUsersList', listDataResult.data?.data.list),
+            commit('changeUserTotalCount', listDataResult.data?.data.totalCount)
+          ]
         case 'role':
-          return commit('changeRoleList', userListResult.data.data.list)
+          return [
+            commit('changeRoleList', listDataResult.data?.data.list),
+            commit('changeRoleTotalCount', listDataResult.data?.data.totalCount)
+          ]
+        case 'goods':
+          return [
+            commit('changeGoodsList', listDataResult.data?.data.list),
+            commit('changeGoodsTotalCount', listDataResult.data?.data.totalCount)
+          ]
+        case 'menu':
+          return [commit('changeMenuList', listDataResult.data?.data.list)]
       }
     }
   }

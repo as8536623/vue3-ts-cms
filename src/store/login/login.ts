@@ -4,14 +4,15 @@ import { loginState } from './type'
 import { loginAccountRequest, userInfoRequest, userRoleRequest } from '@/service/login/login'
 import { loginAccount } from '@/service/login/type'
 import localstorage from '@/utils/localstorage'
-import { changeUserMenu } from '@/utils/userMenu'
+import { changeUserMenu, mapMenuPrimission } from '@/utils/userMenu'
 import router from '@/router'
 const loginModule: Module<loginState, rootState> = {
   namespaced: true,
   state: {
     token: '',
     userInfo: {},
-    menuInfo: {}
+    menuInfo: {},
+    permission: []
   },
   getters: {},
   mutations: {
@@ -27,6 +28,8 @@ const loginModule: Module<loginState, rootState> = {
       routes.forEach((route) => {
         router.addRoute('mainHome', route)
       })
+      const permission = mapMenuPrimission(menuInfo)
+      state.permission = permission
     }
   },
   actions: {

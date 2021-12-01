@@ -1,5 +1,9 @@
 export interface userState {
   usersList: any
   roleList: any
-  totalCount: number
+  goodsList: any
+  menuList: any
+  userTotalCount: number
+  roleTotalCount: number
+  goodsTotalCount: number
 }

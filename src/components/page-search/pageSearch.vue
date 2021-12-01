@@ -7,7 +7,7 @@
           <el-icon><refresh /></el-icon>
           重置
         </el-button>
-        <el-button type="primary">
+        <el-button type="primary" @click="handleSearchClick">
           <el-icon><search /></el-icon>
           搜索
         </el-button>
@@ -29,19 +29,25 @@ export default defineComponent({
   components: {
     HyForm
   },
-  setup(props) {
+  setup(props, { emit }) {
     const searchFormData = []
     for (const item in props.formData.hyfromData) {
       searchFormData[props.formData.hyfromData[item].value] = ''
     }
     const formDataModel = ref(searchFormData)
     const handleResetClick = () => {
-      console.log(1)
+      for (const key in searchFormData) {
+        formDataModel.value[key] = searchFormData[key]
+      }
+      emit('searchData')
     }
-
+    const handleSearchClick = () => {
+      emit('searchData', formDataModel.value)
+    }
     return {
       formDataModel,
-      handleResetClick
+      handleResetClick,
+      handleSearchClick
     }
   }
 })

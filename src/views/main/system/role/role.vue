@@ -1,16 +1,20 @@
 <template>
   <div class="user">
     <div class="search">
-      <pageSearch :formData="formData"></pageSearch>
+      <pageSearch :formData="formData" @searchData="searchFromData"></pageSearch>
     </div>
   </div>
   <div class="content">
-    <pageContent :tableConfigData="tableConfigData" getData="role"></pageContent>
+    <pageContent
+      :tableConfigData="tableConfigData"
+      getData="role"
+      ref="pageContentRef"
+    ></pageContent>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { formData } from './config/formItemData'
 import pageSearch from '@/components/page-search'
 
@@ -23,9 +27,15 @@ export default defineComponent({
     pageContent
   },
   setup() {
+    const pageContentRef = ref()
+    const searchFromData = (value: any) => {
+      pageContentRef.value?.getpageList(value)
+    }
     return {
       formData,
-      tableConfigData
+      tableConfigData,
+      searchFromData,
+      pageContentRef
     }
   }
 })

@@ -36,7 +36,8 @@ import {
   ElBreadcrumb,
   ElBreadcrumbItem,
   ElTableColumn,
-  ElPagination
+  ElPagination,
+  ElImage
 } from 'element-plus'
 
 const components: any[] = [
@@ -75,7 +76,8 @@ const components: any[] = [
   ElBreadcrumb,
   ElBreadcrumbItem,
   ElTableColumn,
-  ElPagination
+  ElPagination,
+  ElImage
 ]
 
 export function registerElement(app: App): void {

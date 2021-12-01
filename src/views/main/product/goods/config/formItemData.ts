@@ -4,31 +4,19 @@ export const formData = {
     {
       type: 'input',
       label: 'ID',
-      placeholder: '请输入用户ID',
+      placeholder: '请输入商品ID',
       value: 'id'
     },
     {
       type: 'input',
-      label: '用户名',
-      placeholder: '请输入用户名',
+      label: '商品名',
+      placeholder: '请输入商品名',
       value: 'name'
     },
     {
-      value: 'realname',
-      type: 'input',
-      label: '真实姓名',
-      placeholder: '请输入真实姓名'
-    },
-    {
-      value: 'cellphone',
-      type: 'input',
-      label: '电话号码',
-      placeholder: '请输入电话号码'
-    },
-    {
       type: 'select',
-      label: '用户状态',
-      placeholder: '请选择用户状态',
+      label: '商品状态',
+      placeholder: '请选择商品状态',
       value: 'enable',
       options: [
         {

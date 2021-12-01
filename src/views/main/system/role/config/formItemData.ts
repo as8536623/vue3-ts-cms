@@ -14,36 +14,18 @@ export const formData = {
       value: 'name'
     },
     {
-      type: 'password',
-      label: '密码',
-      placeholder: '请输入密码',
-      value: 'password'
-    },
-    {
       type: 'select',
-      label: '选择',
-      placeholder: 'Select',
-      value: 'select',
+      label: '用户状态',
+      placeholder: '请选择用户状态',
+      value: 'enable',
       options: [
         {
-          value: 'Option1',
-          title: 'Option1'
+          value: '1',
+          title: '启用'
         },
         {
-          value: 'Option2',
-          title: 'Option2'
-        },
-        {
-          value: 'Option3',
-          title: 'Option3'
-        },
-        {
-          value: 'Option4',
-          title: 'Option4'
-        },
-        {
-          value: 'Option5',
-          title: 'Option5'
+          value: '2',
+          title: '禁用'
         }
       ]
     },
@@ -51,7 +33,7 @@ export const formData = {
       type: 'datepicker',
       label: '创建时间',
       placeholder: '请选择时间',
-      value: 'createtime',
+      value: 'createAt',
       otherOptions: {
         startPlaceholder: '开始时间',
         endPlaceholder: '结束时间'
