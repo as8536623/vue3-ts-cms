@@ -1,12 +1,12 @@
 <template>
   <div class="hyform">
-    <div class="header-title">
+    <div class="header-title" v-if="!isHiddenTitle">
       <slot name="headerTitle"></slot>
     </div>
     <el-form :label-width="labelWidth">
       <el-row :gutter="20">
         <template v-for="item in hyfromData" :key="item">
-          <el-col v-bind="colLayout" :style="paddingWidth">
+          <el-col v-bind="colLayout" :style="paddingWidth" v-if="!item.isHidden">
             <el-form-item :label="item.label">
               <template v-if="item.type == 'input' || item.type == 'password'">
                 <el-input
@@ -25,9 +25,9 @@
                 >
                   <el-option
                     v-for="selectData in item.options"
-                    :label="item.title"
-                    :key="selectData.value"
-                    :value="selectData.value"
+                    :label="selectData.name"
+                    :key="selectData.id"
+                    :value="selectData.id"
                   >
                   </el-option>
                 </el-select>
@@ -59,6 +59,9 @@ export default defineComponent({
   name: 'formData',
   emits: ['update:modelValue'],
   props: {
+    isHiddenTitle: {
+      type: Boolean
+    },
     hyfromData: {
       type: Array,
       default: () => []
@@ -89,8 +92,16 @@ export default defineComponent({
       type: Object
     }
   },
-  setup(prop, { emit }) {
-    const formModel = ref({ ...prop.formDataModel })
+  setup(props, { emit }) {
+    const formModel = ref({ ...props.formDataModel })
+    watch(
+      () => props.formDataModel,
+      (newValue) => {
+        for (const item of props.hyfromData) {
+          formModel.value[`${item.value}`] = newValue?.[`${item.value}`]
+        }
+      }
+    )
     watch(
       formModel,
       (newValue) => {
@@ -107,20 +118,18 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 .hyform {
-  padding-top: 30px;
   .header-title {
     text-align: center;
     padding: 20px 0;
     font-size: 30px;
   }
   .el-row {
-    width: 100%;
+    margin: 0 20px !important;
   }
   .footerBtn {
     text-align: right;
-    padding: 40px;
   }
 }
 </style>

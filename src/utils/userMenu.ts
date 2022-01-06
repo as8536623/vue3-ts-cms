@@ -65,4 +65,19 @@ export function mapMenuPrimission(usermenu: any[]) {
   return permission
 }
 
+export function roleMenu(roleDatas: any[]) {
+  const permission: string[] = []
+  const _recurseGetPermission = (menus: any[]) => {
+    for (const menu of menus) {
+      if (menu.children) {
+        _recurseGetPermission(menu.children)
+      } else {
+        permission.push(menu.id)
+      }
+    }
+  }
+  _recurseGetPermission(roleDatas)
+  return permission
+}
+
 export { firstMenu }

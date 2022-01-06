@@ -10,20 +10,19 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/main',
     name: 'mainHome',
-    component: () => import(/* webpackChunkName: "mainHome" */ '@/views/main/mainHome.vue')
+    component: () => import(/* webpackChunkName: "mainHome" */ '@/views/main/mainHome.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',
     name: 'login',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '@/views/login/login.vue')
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    component: () => import(/* webpackChunkName: "NotFound" */ '@/components/NotFound.vue')
+    component: () =>
+      import(/* webpackChunkName: "NotFound" */ '@/components/not-found/NotFound.vue')
   }
 ]
 const router = createRouter({
@@ -31,9 +30,18 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to) => {
+router.beforeEach((to: any) => {
+  const token = localstorage.getLocal('token')
+  if (to.meta.requiresAuth && !token) {
+    // 此路由需要授权，请检查是否已登录
+    // 如果没有，则重定向到登录页面
+    return {
+      path: '/login',
+      // 保存我们所在的位置，以便以后再来
+      query: { redirect: to.fullPath }
+    }
+  }
   if (to.name !== 'login') {
-    const token = localstorage.getLocal('token')
     if (!token) {
       router.push('/login')
     }

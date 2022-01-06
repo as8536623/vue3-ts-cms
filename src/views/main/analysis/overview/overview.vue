@@ -10,6 +10,8 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'overview',
   setup() {
+    const config = require('/package.json')
+    console.log(config.devDependencies)
     return {}
   }
 })

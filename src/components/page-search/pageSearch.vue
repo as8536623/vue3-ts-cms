@@ -3,11 +3,11 @@
     <HyForm v-bind="formData" v-model="formDataModel">
       <template v-slot:headerTitle>高级检索</template>
       <template v-slot:footerBtn>
-        <el-button @click="handleResetClick">
+        <el-button @click="handleResetClick" class="btn">
           <el-icon><refresh /></el-icon>
           重置
         </el-button>
-        <el-button type="primary" @click="handleSearchClick">
+        <el-button type="primary" @click="handleSearchClick" class="btn">
           <el-icon><search /></el-icon>
           搜索
         </el-button>
@@ -53,4 +53,9 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.btn {
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+</style>

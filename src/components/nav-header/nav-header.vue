@@ -31,7 +31,7 @@
           </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item>退出登录</el-dropdown-item>
+              <el-dropdown-item @click="exitLogin">退出登录</el-dropdown-item>
               <el-dropdown-item divided>用户信息</el-dropdown-item>
               <el-dropdown-item>系统管理</el-dropdown-item>
             </el-dropdown-menu>
@@ -46,11 +46,14 @@
 import { defineComponent, ref, computed, reactive } from 'vue'
 import store from '@/store'
 import { menuPath } from '@/utils/userMenu'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import LocalStorage from '@/utils/localstorage'
 export default defineComponent({
   emits: ['navHeaderValue'],
   name: 'nav-header',
   setup(props, context) {
+    const route = useRoute()
+    const router = useRouter()
     const isIcon = ref(false)
     const handClickIcon = () => {
       isIcon.value = !isIcon.value
@@ -58,16 +61,20 @@ export default defineComponent({
     }
     const userName = computed(() => store.state.loginModule.userInfo.name)
     const breadcrumb = computed(() => {
-      const route = useRoute()
       const breadcrumbpath = route.path
       const userMenu = reactive(store.state.loginModule.menuInfo)
       return menuPath(userMenu, breadcrumbpath, 1)
     })
+    const exitLogin = () => {
+      LocalStorage.removeLocal('token')
+      router.push('/main')
+    }
     return {
       isIcon,
       handClickIcon,
       userName,
-      breadcrumb
+      breadcrumb,
+      exitLogin
     }
   }
 })

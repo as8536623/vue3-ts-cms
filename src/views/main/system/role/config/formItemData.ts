@@ -18,16 +18,7 @@ export const formData = {
       label: '用户状态',
       placeholder: '请选择用户状态',
       value: 'enable',
-      options: [
-        {
-          value: '1',
-          title: '启用'
-        },
-        {
-          value: '2',
-          title: '禁用'
-        }
-      ]
+      options: []
     },
     {
       type: 'datepicker',

@@ -16,6 +16,7 @@
           type="password"
           autocomplete="off"
           show-password
+          @keyup.enter="clickLogin"
         ></el-input>
       </el-form-item>
     </el-form>
@@ -30,7 +31,7 @@ import { ElForm } from 'element-plus/es'
 import LocalStorage from '@/utils/localstorage'
 export default defineComponent({
   name: 'login-account',
-  setup() {
+  setup(props, { emit }) {
     const store = useStore()
     const account = reactive({
       name: '',
@@ -60,11 +61,15 @@ export default defineComponent({
         }
       })
     }
+    const clickLogin = () => {
+      emit('clickLogin')
+    }
     return {
       account,
       rules,
       loginAction,
-      ruleForm
+      ruleForm,
+      clickLogin
     }
   }
 })

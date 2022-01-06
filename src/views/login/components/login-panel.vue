@@ -8,7 +8,7 @@
             <el-icon color="#409EFC"><avatar /></el-icon> 账号登录
           </span>
         </template>
-        <loginAccount ref="accountRef"></loginAccount>
+        <loginAccount ref="accountRef" @clickLogin="bthClick"></loginAccount>
       </el-tab-pane>
       <el-tab-pane name="iphone">
         <template #label>

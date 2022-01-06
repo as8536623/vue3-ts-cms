@@ -10,6 +10,9 @@
   >
     <template #header>
       <span>{{ tableConfigData.headerTitle }}</span>
+      <el-button type="primary" v-if="isCreate" class="createUser" @click="createNewUser">
+        {{ createBtnTitle }}
+      </el-button>
     </template>
     <template #status="scope">
       <el-button size="mini">
@@ -20,18 +23,20 @@
       <span>{{ $filters.formatUTCTime(scope.row.createAt) }}</span>
     </template>
     <template #updateAt="scope">
-      <span>{{ $filters.formatTimes(scope.row.createAt) }}</span>
+      <span>{{ $filters.formatUTCTime(scope.row.updateAt) }}</span>
     </template>
     <template #operationAt="scope">
-      <el-button type="text" size="small">编辑{{ scope.row.id }}</el-button>
-      <el-button type="text" size="small">删除</el-button>
+      <el-button type="text" size="small" @click="editData(scope.row)">
+        编辑{{ scope.row.id }}
+      </el-button>
+      <el-button type="text" size="small" @click="deleteData(scope.row)">删除</el-button>
     </template>
-    <template #footer></template>
     <template v-for="item of otherProps" #[item.slotName]="scope">
       <template v-if="item.slotName">
         <slot :name="item.slotName" :row="scope.row"></slot>
       </template>
     </template>
+    <template #footer></template>
   </HyTable>
 </template>
 
@@ -48,21 +53,23 @@ export default defineComponent({
     },
     getData: {
       type: String
+    },
+    createBtnTitle: {
+      type: String
     }
   },
   components: {
     HyTable
   },
-  setup(props) {
+  setup(props, { emit }) {
     /*获取用户按钮权限*/
     const isQuery = menuPermission(props.getData + '', 'query')
     const isCreate = menuPermission(props.getData + '', 'create')
     const isDelete = menuPermission(props.getData + '', 'delete')
     const isUpdate = menuPermission(props.getData + '', 'update')
     /*获取服务器列表数据存储到store中*/
-    const pageInfo = ref({ current: 0, pageSize: 10 })
+    const pageInfo = ref({ current: 1, pageSize: 10 })
     watch(pageInfo, () => {
-      console.log(pageInfo)
       getpageList({})
     })
     const store = useStore()
@@ -72,7 +79,7 @@ export default defineComponent({
         dataName: props.getData,
         url: `/${props.getData}/list`,
         params: {
-          offset: pageInfo.value.pageSize * pageInfo.value.current,
+          offset: (pageInfo.value.current - 1) * pageInfo.value.pageSize,
           size: pageInfo.value.pageSize,
           ...queryInfo
         }
@@ -93,6 +100,20 @@ export default defineComponent({
       if (item.slotName == 'operationAt') return false
       return true
     })
+
+    /*删除数据*/
+    const deleteData = (data: any) => {
+      store.dispatch('userModule/deleteUserList', {
+        dataName: props.getData,
+        id: `${data.id}`
+      })
+    }
+    const createNewUser = () => {
+      emit('createNewUser')
+    }
+    const editData = (data: any) => {
+      emit('editUser', data)
+    }
     return {
       dataList,
       getpageList,
@@ -103,10 +124,18 @@ export default defineComponent({
       isQuery,
       isCreate,
       isDelete,
-      isUpdate
+      isUpdate,
+      deleteData,
+      createNewUser,
+      editData
     }
   }
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.createUser {
+  float: right;
+  margin-top: -10px;
+}
+</style>

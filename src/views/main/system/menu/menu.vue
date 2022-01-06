@@ -4,6 +4,7 @@
       :tableConfigData="tableConfigData"
       getData="menu"
       ref="pageContentRef"
+      createBtnTitle="新建菜单"
     ></pageContent>
   </div>
 </template>

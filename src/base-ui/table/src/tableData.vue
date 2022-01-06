@@ -34,7 +34,7 @@
       <template v-if="showPagination">
         <slot name="footer">
           <el-pagination
-            v-model:currentPage="currentPage"
+            :current-page="page.current"
             :page-sizes="[10, 20, 30, 40]"
             :page-size="page.pageSize"
             layout="total, sizes, prev, pager, next, jumper"
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'tableData',
   props: {
@@ -98,13 +98,11 @@ export default defineComponent({
     const handleCurrentChange = (current) => {
       emit('update:page', { ...props.page, current })
     }
-    const currentPage = ref(1)
     const select = (selection) => {
       console.log(selection)
     }
     return {
       handleSelectionChange,
-      currentPage,
       handleSizeChange,
       handleCurrentChange,
       select

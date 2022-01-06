@@ -1,7 +1,8 @@
 export interface userAccount {
   url: string
-  params: any
-  dataName: string
+  params?: any
+  dataName?: string
+  id?: number
 }
 
 export interface userResult {
@@ -10,6 +11,7 @@ export interface userResult {
 }
 
 export interface userResultType<T = any> {
+  state: boolean
   data: {
     data: T
   }

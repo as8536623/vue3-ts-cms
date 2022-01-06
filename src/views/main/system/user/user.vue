@@ -7,9 +7,20 @@
   <div class="content">
     <pageContent
       :tableConfigData="tableConfigData"
+      :createData="createData"
       getData="users"
       ref="pageContentRef"
+      @createNewUser="createNewUser"
+      @editUser="editUser"
+      createBtnTitle="新建用户"
     ></pageContent>
+    <pageCreateTable
+      ref="pageCreateTableRef"
+      :createData="createData"
+      :editDataMoal="editDataMoal"
+      :headerTitle="headerTitle"
+      dataName="users"
+    ></pageCreateTable>
   </div>
 </template>
 
@@ -20,22 +31,62 @@ import pageSearch from '@/components/page-search'
 
 import { tableConfigData } from './config/tableConfigData'
 import pageContent from '@/components/page-content'
+
+import { createData } from './config/createItemData'
+import pageCreateTable from '@/components/page-createTable'
+
 export default defineComponent({
   name: 'user',
   components: {
     pageSearch,
-    pageContent
+    pageContent,
+    pageCreateTable
   },
+  emits: ['createNewUser', 'editUser'],
   setup() {
     const pageContentRef = ref()
     const searchFromData = (value: any) => {
       pageContentRef.value?.getpageList(value)
     }
+    //弹框title
+    const headerTitle = ref()
+    /*新建*/
+    const pageCreateTableRef = ref()
+    const createNewUser = () => {
+      headerTitle.value = '新建用户'
+      pageCreateTableRef.value.centerDialogVisible = true
+      editDataMoal.value = {}
+      if (createData.hyfromData) {
+        const passwordItem = createData.hyfromData.find((item) => {
+          return item.type == 'password'
+        })
+        passwordItem!.isHidden = false
+      }
+    }
+    /*编辑*/
+    const editDataMoal = ref({})
+    const editUser = (userData: any) => {
+      headerTitle.value = '编辑用户'
+      pageCreateTableRef.value.centerDialogVisible = true
+      editDataMoal.value = userData
+      if (createData.hyfromData) {
+        const passwordItem = createData.hyfromData.find((item) => {
+          return item.type == 'password'
+        })
+        passwordItem!.isHidden = true
+      }
+    }
     return {
       formData,
       tableConfigData,
       searchFromData,
-      pageContentRef
+      pageContentRef,
+      createData,
+      headerTitle,
+      createNewUser,
+      pageCreateTableRef,
+      editUser,
+      editDataMoal
     }
   }
 })

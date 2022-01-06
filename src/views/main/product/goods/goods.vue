@@ -5,7 +5,12 @@
     </div>
   </div>
   <div class="content">
-    <pageContent :tableConfigData="tableConfigData" getData="goods" ref="pageContentRef">
+    <pageContent
+      :tableConfigData="tableConfigData"
+      getData="goods"
+      ref="pageContentRef"
+      createBtnTitle="新建商品"
+    >
       <template #imgUrl="scope">
         <el-image :src="scope.row.imgUrl" :preview-src-list="[scope.row.imgUrl]"></el-image>
       </template>
