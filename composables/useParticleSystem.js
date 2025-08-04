@@ -284,6 +284,92 @@ export function useParticleSystem(scene) {
     return emitter;
   };
 
+  // 创建水流粒子发射器
+  const createWaterEmitter = (size, center, cfgKey = 'WATER') => {
+    const config = EMITTER_CONFIG[cfgKey];
+    if (!config) return null;
+    const emitter = new Proton.Emitter();
+
+    emitter.rate = new Proton.Rate(
+      new Proton.Span(...config.rate.span),
+      new Proton.Span(...config.rate.interval)
+    );
+
+    emitter.addInitialize(new Proton.Body(new THREE.Sprite(particleMaterial1)));// 使用偏蓝材质
+    emitter.addInitialize(new Proton.Mass(1));
+    emitter.addInitialize(new Proton.Life(...config.life));
+    emitter.addInitialize(new Proton.Position(new Proton.BoxZone(size.x, size.y, size.z)));
+    emitter.addInitialize(new Proton.V(
+      new Proton.Span(...config.velocity),
+      new Proton.Vector3D(0, 1, 0),
+      30
+    ));
+
+    emitter.addBehaviour(new Proton.RandomDrift(10, 10, 10, 0.05));
+    emitter.addBehaviour(new Proton.Scale(new Proton.Span(...config.scale), config.scale[0]));
+    emitter.addBehaviour(new Proton.G(config.gravity));
+    emitter.addBehaviour(new Proton.Color(
+      config.colors[0],
+      config.colors.slice(1),
+      Infinity,
+      Proton.easeOutSine
+    ));
+
+    emitter.p.set(center.x, center.y, center.z);
+    emitter.emit();
+
+    proton.addEmitter(emitter);
+    emitters.value.push(emitter);
+    return emitter;
+  };
+
+  // 塌方粉尘发射器（COLLAPSE）
+  const createCollapseEmitter = (size, center) => {
+    const config = EMITTER_CONFIG.COLLAPSE;
+    if (!config) return null;
+    return createDustEmitter(size, center); // 利用粉尘效果实现
+  };
+
+  // 冲击地压发射器（IMPACT_PRESSURE）
+  const createImpactPressureEmitter = (size, center) => {
+    const config = EMITTER_CONFIG.IMPACT_PRESSURE;
+    if (!config) return null;
+
+    const emitter = new Proton.Emitter();
+
+    emitter.rate = new Proton.Rate(
+      new Proton.Span(...config.rate.span),
+      new Proton.Span(...config.rate.interval)
+    );
+
+    emitter.addInitialize(new Proton.Body(new THREE.Sprite(particleMaterial)));
+    emitter.addInitialize(new Proton.Mass(1));
+    emitter.addInitialize(new Proton.Life(...config.life));
+    emitter.addInitialize(new Proton.Position(new Proton.BoxZone(size.x, size.y, size.z)));
+    emitter.addInitialize(new Proton.V(
+      new Proton.Span(...config.velocity),
+      new Proton.Vector3D(0, -1, 0), // 向下冲击
+      30
+    ));
+
+    emitter.addBehaviour(new Proton.RandomDrift(30, 30, 30, 0.05));
+    emitter.addBehaviour(new Proton.Scale(new Proton.Span(...config.scale), config.scale[0]));
+    emitter.addBehaviour(new Proton.G(config.gravity));
+    emitter.addBehaviour(new Proton.Color(
+      config.colors[0],
+      config.colors.slice(1),
+      Infinity,
+      Proton.easeOutSine
+    ));
+
+    emitter.p.set(center.x, center.y, center.z);
+    emitter.emit();
+
+    proton.addEmitter(emitter);
+    emitters.value.push(emitter);
+    return emitter;
+  };
+
   // 根据灾害类型创建发射器
   const createEmitterByType = (type, size, center) => {
     switch (type) {
@@ -293,8 +379,16 @@ export function useParticleSystem(scene) {
         return createGasEmitter(size, center);
       case DISASTER_TYPES.DUST:
         return createDustEmitter(size, center);
+      case DISASTER_TYPES.WATER:
+        return createWaterEmitter(size, center, 'WATER');
+      case DISASTER_TYPES.WALL_WATER:
+        return createWaterEmitter(size, center, 'WALL_WATER');
+      case DISASTER_TYPES.COLLAPSE:
+        return createCollapseEmitter(size, center);
+      case DISASTER_TYPES.IMPACT_PRESSURE:
+        return createImpactPressureEmitter(size, center);
       default:
-        return createFireEmitter(size, center);
+        return null;
     }
   };
 
@@ -354,6 +448,9 @@ export function useParticleSystem(scene) {
     createFireEmitter,
     createGasEmitter,
     createDustEmitter,
+    createWaterEmitter,
+    createCollapseEmitter,
+    createImpactPressureEmitter,
     createExplosion,
     createSmokeEmitter,
     createEmitterByType,

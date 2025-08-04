@@ -68,6 +68,42 @@ export const EMITTER_CONFIG = {
     scale: [4, 4],
     colors: ['#ffffff', '#ffffff', '#ffffff', '#ffffff'],
     gravity: -1
+  },
+  // 新增: 水害粒子配置
+  WATER: {
+    rate: { span: [6, 14], interval: [0.1, 0.2] },
+    life: [0.5, 1.5],
+    velocity: [80, 150],
+    scale: [3, 4],
+    colors: ['#00c0ff', '#00a2ff', '#0084ff', '#0066ff'],
+    gravity: 15
+  },
+  // 新增: 墙壁渗水 – 复用 WATER 配置，可按需独立调整
+  WALL_WATER: {
+    rate: { span: [6, 14], interval: [0.1, 0.2] },
+    life: [0.5, 1.5],
+    velocity: [80, 150],
+    scale: [2.5, 3.5],
+    colors: ['#4cc9ff', '#28b2ff', '#009bff', '#0084ff'],
+    gravity: 18
+  },
+  // 新增: 塌方(粉尘) 粒子配置
+  COLLAPSE: {
+    rate: { span: [20, 40], interval: [0.05, 0.1] },
+    life: [0.5, 1.2],
+    velocity: [300, 500],
+    scale: [0.5, 4],
+    colors: ['#aaaaaa', '#888888', '#666666', '#444444'],
+    gravity: -3
+  },
+  // 新增: 冲击地压 粒子配置（烟尘 + 震荡）
+  IMPACT_PRESSURE: {
+    rate: { span: [25, 50], interval: [0.05, 0.1] },
+    life: [0.6, 1.5],
+    velocity: [350, 600],
+    scale: [1, 4],
+    colors: ['#777777', '#555555', '#333333', '#111111'],
+    gravity: -3
   }
 };
 
